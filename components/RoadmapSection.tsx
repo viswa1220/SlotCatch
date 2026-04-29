@@ -1,76 +1,175 @@
 "use client";
+import { useState, useEffect } from "react";
 import Icon from "./Icon";
 import { useInView } from "@/lib/hooks";
 
-type Item = {
-  when: "Now" | "Next" | "Soon" | "Later";
-  title: string;
-  sub: string;
-  icon: Parameters<typeof Icon>[0]["name"];
+type Stage = {
+  day: string;
+  label: string;
+  messages: Array<{
+    type: "u" | "a" | "sys";
+    text: string;
+  }>;
+  tag?: string;
+  tagColor?: "teal" | "blue" | "mute";
 };
 
-const ITEMS: Item[] = [
+const STAGES: Stage[] = [
   {
-    when: "Now",
-    title: "WhatsApp Booking",
-    sub: "The core: instant replies, accurate quotes, automatic bookings.",
-    icon: "whatsapp",
+    day: "DAY 0",
+    label: "Customer books",
+    tag: "BOOKING CONFIRMED",
+    tagColor: "teal",
+    messages: [
+      { type: "sys", text: "Booking confirmed for Saturday 9:00 AM" },
+    ],
   },
   {
-    when: "Next",
-    title: "Review Booster",
-    sub: "After every booking, customers get a gentle nudge to leave a Google review.",
-    icon: "spark",
+    day: "DAY 1",
+    label: "Owner notified, service done",
+    tag: "SERVICE COMPLETED",
+    tagColor: "teal",
+    messages: [
+      { type: "sys", text: "Service completed. Owner notified." },
+    ],
   },
   {
-    when: "Soon",
-    title: "Ads & Lead Gen",
-    sub: "Manage Google and Instagram campaigns — bring warm leads straight into WhatsApp.",
-    icon: "zap",
+    day: "AFTER SERVICE",
+    label: "Review request sent",
+    tag: "REVIEW REQUESTED",
+    tagColor: "blue",
+    messages: [
+      { type: "a", text: "Thanks for choosing us! Mind sharing a quick review of your visit? Reply with a 1-5 rating and a few words." },
+      { type: "u", text: "5 — looked brand new!" },
+    ],
   },
   {
-    when: "Later",
-    title: "Follow-up & Referrals",
-    sub: "Win back quiet customers and turn happy ones into your best marketing channel.",
-    icon: "bell",
+    day: "OWNER APPROVAL",
+    label: "Owner approves the review",
+    tag: "REVIEW LIVE ON WEBSITE",
+    tagColor: "teal",
+    messages: [
+      { type: "sys", text: "Owner approved. Review is now live on your website." },
+    ],
   },
   {
-    when: "Later",
-    title: "Invoicing & Payments",
-    sub: "Send a WhatsApp invoice with a pay link after every job. Stripe & PayPal built in.",
-    icon: "dollar",
+    day: "DAY 30",
+    label: "Retention follow-up",
+    tag: "RETENTION",
+    tagColor: "mute",
+    messages: [
+      { type: "a", text: "It's been about a month — want to keep that finish sharp? I have Sat or Sun open." },
+    ],
   },
   {
-    when: "Later",
-    title: "Inventory Tracking",
-    sub: "Track product usage per job. Low-stock alerts. Smart reorder suggestions.",
-    icon: "calendar",
+    day: "CUSTOMER REPLIES",
+    label: "BOOK — rebooking starts",
+    messages: [
+      { type: "u", text: "Done ✅ Saturday 9:00 AM. See you then!" },
+      { type: "sys", text: "Booking confirmed. Cycle repeats." },
+    ],
   },
 ];
 
 export default function RoadmapSection() {
-  const [ref, inView] = useInView({ threshold: 0.1 });
+  const [ref, inView] = useInView({ threshold: 0.15 });
+  const [currentStage, setCurrentStage] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    const timer = setInterval(() => {
+      setCurrentStage((prev) => {
+        if (prev >= STAGES.length - 1) {
+          setIsPlaying(false);
+          return prev;
+        }
+        return prev + 1;
+      });
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [isPlaying]);
+
+  useEffect(() => {
+    if (inView && !isPlaying) {
+      setIsPlaying(true);
+    }
+  }, [inView]);
+
+  const handleReplay = () => {
+    setCurrentStage(0);
+    setIsPlaying(true);
+  };
+
+  const stage = STAGES[currentStage];
+
   return (
-    <section id="roadmap" className="section roadmap-section" ref={ref as any}>
+    <section id="roadmap" className="section" style={{ background: 'linear-gradient(180deg, transparent, rgba(20,184,166,0.03), transparent)' }}>
       <div className="section-inner">
-        <div className={`section-head ${inView ? "in" : ""}`}>
-          <div className="eyebrow">Where we&apos;re going</div>
-          <h2>More than bookings. A full back office.</h2>
-          <p className="section-sub">
-            One platform, added piece by piece — each one earns its place before the next ships.
-          </p>
-        </div>
-        <div className={`roadmap-grid ${inView ? "in" : ""}`}>
-          {ITEMS.map((it, i) => (
-            <div key={i} className="roadmap-item glass" style={{ transitionDelay: `${i * 80}ms` }}>
-              <div className="roadmap-node"><Icon name={it.icon} size={18} /></div>
-              <div className="roadmap-meta">
-                <span className={`roadmap-when roadmap-when-${it.when.toLowerCase()}`}>{it.when}</span>
-              </div>
-              <div className="roadmap-title">{it.title}</div>
-              <div className="roadmap-sub">{it.sub}</div>
+        <div className={`retention-flow ${inView ? "in" : ""}`} ref={ref as any}>
+          <div className="retention-head">
+            <div className="retention-eyebrow">
+              <span className="retention-dot"></span>
+              Lifecycle
             </div>
-          ))}
+            <h3>A month later, SlotCatch brings them back.</h3>
+            <p>
+              Most booking tools stop after the appointment. SlotCatch keeps the customer relationship alive — collecting reviews, publishing approved feedback, and sending retention follow-ups that bring past customers back.
+            </p>
+          </div>
+
+          <div className="retention-stage">
+            <div className="retention-timeline">
+              {STAGES.map((s, i) => (
+                <div
+                  key={i}
+                  className={`retention-tick ${i <= currentStage ? "active" : ""} ${i === currentStage ? "current" : ""}`}
+                >
+                  <div className="retention-tick-dot"></div>
+                  <div className="retention-tick-day">{s.day}</div>
+                  <div className="retention-tick-label">{s.label}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="retention-screen glass">
+              <div className="retention-screen-top">
+                <div className="retention-screen-avatar">
+                  <Icon name="whatsapp" size={18} />
+                </div>
+                <div className="retention-screen-meta">
+                  <div className="retention-screen-name">Prime Auto Detailing · SlotCatch</div>
+                  {stage.tag && (
+                    <div className="retention-screen-sub">
+                      <span className={`retention-tag retention-tag-${stage.tagColor || "mute"}`}>
+                        {stage.tag}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                <div className="retention-screen-day">{stage.day}</div>
+              </div>
+
+              <div className="retention-screen-body">
+                {stage.messages.map((msg, i) => (
+                  <div
+                    key={i}
+                    className={`retention-msg retention-msg-${msg.type}`}
+                    style={{ animationDelay: `${i * 150}ms` }}
+                  >
+                    {msg.text}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="retention-controls">
+              <button className="retention-replay" onClick={handleReplay}>
+                <Icon name="repeat" size={14} />
+                Replay
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

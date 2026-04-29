@@ -3,7 +3,7 @@ import React from "react";
 export type IconName =
   | "whatsapp" | "brain" | "calendar" | "clock" | "dollar" | "bell"
   | "phone" | "globe" | "check" | "arrow" | "send" | "user" | "spark"
-  | "menu" | "x" | "zap";
+  | "menu" | "x" | "zap" | "message-circle" | "repeat" | "loader" | "star";
 
 const PATHS: Record<IconName, React.ReactNode> = {
   whatsapp: (<><path d="M3 21l1.65-4.5A9 9 0 1 1 8 20.5L3 21z"/><path d="M8.5 10.5c.5 2 2 3.5 4 4l1.2-1.2c.3-.3.7-.4 1-.2l2 .8c.3.1.5.4.5.7v1.7c0 .4-.3.7-.7.8-4.6.5-8.8-3.7-8.3-8.3.1-.4.4-.7.8-.7h1.7c.3 0 .6.2.7.5l.8 2c.1.4.1.7-.2 1l-1.2 1.2z"/></>),
@@ -21,7 +21,11 @@ const PATHS: Record<IconName, React.ReactNode> = {
   spark: (<><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/></>),
   menu: (<><path d="M3 6h18M3 12h18M3 18h18"/></>),
   x: (<><path d="M6 6l12 12M18 6L6 18"/></>),
+  star: (<><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></>),
   zap: (<path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>),
+  "message-circle": (<><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></>),
+  repeat: (<><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></>),
+  loader: (<><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></>),
 };
 
 export default function Icon({ name, size = 24 }: { name: IconName; size?: number }) {

@@ -2,30 +2,86 @@
 import Icon, { IconName } from "./Icon";
 import { useInView } from "@/lib/hooks";
 
+type RoadmapItem = {
+  icon: IconName;
+  status: "NOW" | "NEXT" | "SOON" | "LATER";
+  title: string;
+  description: string;
+};
+
+const ROADMAP_ITEMS: RoadmapItem[] = [
+  {
+    icon: "whatsapp",
+    status: "NOW",
+    title: "WhatsApp + SMS booking",
+    description: "Live: instant replies, smart quoting, calendar scheduling, rescheduling.",
+  },
+  {
+    icon: "spark",
+    status: "NOW",
+    title: "Reviews & retention",
+    description: "Live: review collection, owner approval, website widget, 30-day follow-ups.",
+  },
+  {
+    icon: "bell",
+    status: "NOW",
+    title: "Owner command center",
+    description: "Live: instant alerts, daily/weekly reports, schedule gap detection.",
+  },
+  {
+    icon: "globe",
+    status: "NEXT",
+    title: "Multi-business support",
+    description: "For agencies and operators managing multiple detailing shops from one account.",
+  },
+  {
+    icon: "check",
+    status: "SOON",
+    title: "Owner web dashboard",
+    description: "Manage bookings, customers, services, reviews, and settings from any browser.",
+  },
+  {
+    icon: "zap",
+    status: "LATER",
+    title: "Inventory-aware alerts",
+    description: "Example: Ceramic coating is low — suggest a ceramic appointment tomorrow.",
+  },
+  {
+    icon: "check",
+    status: "LATER",
+    title: "Google reviews & analytics",
+    description: "Direct Google review link flow plus deeper analytics on review performance.",
+  },
+];
+
 export default function FeaturesSection() {
   const [ref, inView] = useInView({ threshold: 0.15 });
-  const features: { icon: IconName; title: string; sub: string }[] = [
-    { icon: "clock", title: "24/7 Instant Replies", sub: "Never miss a lead again — even at 3 AM on a holiday weekend." },
-    { icon: "dollar", title: "Accurate Pricing Engine", sub: "Quotes exact prices based on vehicle type and service complexity." },
-    { icon: "calendar", title: "Calendar Integration", sub: "Checks real availability and creates calendar events automatically." },
-    { icon: "bell", title: "Owner Notifications", sub: "Get a push alert for every new booking, right on your phone." },
-    { icon: "phone", title: "Your Existing Number", sub: "Works with your current WhatsApp Business number. No migration." },
-    { icon: "globe", title: "Multi-Language", sub: "Serve customers in any language. Coming soon — EN / ES / FR ready." },
-  ];
+  
   return (
     <section id="features" className="section features-section" ref={ref as any}>
       <div className="section-inner">
-        <div className={`section-head ${inView ? "in" : ""}`}>
-          <div className="eyebrow">Built for service businesses</div>
-          <h2>Everything your business needs.</h2>
+        <div className={`section-head center ${inView ? "in" : ""}`}>
+          <div className="eyebrow">Roadmap</div>
+          <h2>Built for detailers. Growing every month.</h2>
+          <p className="section-sub">
+            What's live today, and what's coming next — each piece earns its place before the next ships.
+          </p>
         </div>
-        <div className={`features-grid ${inView ? "in" : ""}`}>
-          {features.map((f, i) => (
-            <div key={i} className="feature-card glass" style={{ transitionDelay: `${i * 80}ms` }}>
-              <div className="feature-icon"><Icon name={f.icon} size={22} /></div>
-              <div className="feature-title">{f.title}</div>
-              <div className="feature-sub">{f.sub}</div>
-              <div className="card-shine" />
+        <div className={`roadmap-features-grid ${inView ? "in" : ""}`}>
+          {ROADMAP_ITEMS.map((item, i) => (
+            <div 
+              key={i} 
+              className="roadmap-feature-card glass"
+              style={{ transitionDelay: `${i * 60}ms` }}
+            >
+              <div className="roadmap-feature-icon">
+                <Icon name={item.icon} size={20} />
+              </div>
+              <div className={`roadmap-feature-badge roadmap-badge-${item.status.toLowerCase()}`}>
+                {item.status}
+              </div>
+              <div className="roadmap-feature-title">{item.title}</div>
+              <div className="roadmap-feature-desc">{item.description}</div>
             </div>
           ))}
         </div>

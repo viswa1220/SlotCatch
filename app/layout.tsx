@@ -17,49 +17,95 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://slotcatch.ai"),
-  title: "SlotCatch.ai — AI WhatsApp Booking Agent for Service Businesses",
+  metadataBase: new URL("https://www.slotcatch.com"),
+
+  title: {
+    default: "SlotCatch | WhatsApp + SMS Automation for Auto Detailers",
+    template: "%s | SlotCatch",
+  },
+
   description:
-    "SlotCatch.ai is an AI receptionist that replies on WhatsApp, quotes pricing, and books appointments 24/7 for car detailers, cleaners, HVAC, lawn care, and dental practices.",
+    "SlotCatch helps auto detailers turn WhatsApp and SMS conversations into bookings, calendar appointments, reviews, repeat customers, and recovered schedule gaps.",
+
   keywords: [
     "SlotCatch",
-    "SlotCatch.ai",
-    "AI receptionist",
-    "WhatsApp booking agent",
-    "AI booking",
-    "service business automation",
-    "car detailing AI",
-    "cleaning booking",
-    "HVAC booking",
-    "dental booking",
+    "auto detailing software",
+    "auto detailer booking software",
+    "detailing business automation",
+    "WhatsApp booking automation",
+    "SMS booking automation",
+    "AI receptionist for auto detailers",
+    "car detailing booking system",
+    "detailing appointment scheduling",
+    "review automation for detailers",
+    "customer retention for detailers",
+    "missed call recovery for detailers",
+    "schedule gap recovery for detailers",
   ],
-  authors: [{ name: "SlotCatch.ai" }],
-  robots: { index: true, follow: true },
-  alternates: { canonical: "https://slotcatch.ai/" },
+
+  authors: [{ name: "SlotCatch" }],
+  creator: "SlotCatch",
+  publisher: "SlotCatch",
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  alternates: {
+    canonical: "https://www.slotcatch.com/",
+  },
+
   openGraph: {
     type: "website",
-    url: "https://slotcatch.ai/",
-    siteName: "SlotCatch.ai",
-    title: "SlotCatch.ai — AI WhatsApp Booking Agent",
+    url: "https://www.slotcatch.com/",
+    siteName: "SlotCatch",
+    title: "SlotCatch | Turn Chats Into Bookings, Reviews, and Repeat Customers",
     description:
-      "Your AI receptionist on WhatsApp. Replies instantly. Quotes accurately. Books automatically.",
+      "WhatsApp + SMS automation for auto detailers. Automate booking, calendar scheduling, rescheduling, review collection, owner approvals, retention follow-ups, and schedule gap recovery.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "SlotCatch WhatsApp and SMS automation for auto detailers",
+      },
+    ],
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "SlotCatch.ai — AI WhatsApp Booking Agent",
+    title: "SlotCatch | WhatsApp + SMS Automation for Auto Detailers",
     description:
-      "Your AI receptionist on WhatsApp. 24/7 bookings for service businesses.",
+      "Turn WhatsApp and SMS conversations into bookings, reviews, repeat customers, and recovered calendar gaps.",
+    images: ["/og-image.png"],
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "SlotCatch.ai",
+  name: "SlotCatch",
   applicationCategory: "BusinessApplication",
-  description: "AI WhatsApp booking agent for service businesses",
+  applicationSubCategory: "Appointment Scheduling Software",
   operatingSystem: "Web",
-  offers: { "@type": "Offer", price: "99", priceCurrency: "USD" },
+  url: "https://www.slotcatch.com/",
+  description:
+    "WhatsApp and SMS automation software for auto detailers that helps with booking, calendar scheduling, rescheduling, review collection, retention follow-ups, and schedule gap recovery.",
+  audience: {
+    "@type": "Audience",
+    audienceType: "Auto detailers and mobile detailing businesses",
+  },
+  offers: {
+    "@type": "Offer",
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
+  },
 };
 
 export default function RootLayout({
