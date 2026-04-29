@@ -3466,3 +3466,161 @@ html {
     padding: 8px 11px !important;
   }
 }
+
+/* =========================================================
+   LIFECYCLE + PHONE WIDTH FIX
+   ========================================================= */
+
+/* Prevent the whole demo from horizontally overflowing */
+.demo-section,
+.demo-inner,
+.demo-playground,
+.lifecycle-demo,
+.lifecycle-wrapper {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Lifecycle row should wrap instead of forcing page width */
+.lifecycle-bar,
+.lifecycle-steps,
+.lifecycle-progress {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+/* Each lifecycle item should not force huge width */
+.lifecycle-step,
+.lifecycle-pill,
+.lifecycle-item {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+/* Phone/demo container should shrink correctly */
+.phone-grid,
+.phone-demo-grid,
+.demo-phone-grid,
+.two-phone-demo {
+  width: 100%;
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+}
+
+/* Critical: allow grid children to shrink */
+.phone-grid > *,
+.phone-demo-grid > *,
+.demo-phone-grid > *,
+.two-phone-demo > * {
+  min-width: 0;
+}
+
+/* Phone card should never exceed container */
+.phone-shell,
+.phone-card,
+.demo-phone,
+.customer-phone,
+.owner-phone {
+  width: 100%;
+  max-width: 420px;
+  min-width: 0;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* Inner phone content should not overflow */
+.phone-screen,
+.phone-body,
+.phone-content,
+.chat-widget,
+.chat-widget-body {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Long message text should wrap */
+.bubble,
+.chat-bubble,
+.message-bubble,
+.lifecycle-message {
+  max-width: 82%;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+/* On tablet/mobile, stack the phones */
+@media (max-width: 900px) {
+  .phone-grid,
+  .phone-demo-grid,
+  .demo-phone-grid,
+  .two-phone-demo {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .phone-shell,
+  .phone-card,
+  .demo-phone,
+  .customer-phone,
+  .owner-phone {
+    max-width: 460px;
+  }
+}
+
+/* On small phones, reduce fixed widths and lifecycle pills */
+@media (max-width: 560px) {
+  .demo-section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .phone-shell,
+  .phone-card,
+  .demo-phone,
+  .customer-phone,
+  .owner-phone {
+    max-width: 100%;
+    border-radius: 22px;
+  }
+
+  .lifecycle-bar,
+  .lifecycle-steps,
+  .lifecycle-progress {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .lifecycle-step,
+  .lifecycle-pill,
+  .lifecycle-item {
+    flex: 0 0 auto;
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .bubble,
+  .chat-bubble,
+  .message-bubble,
+  .lifecycle-message {
+    max-width: 88%;
+    font-size: 13.5px;
+  }
+}
