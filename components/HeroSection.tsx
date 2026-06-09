@@ -42,8 +42,8 @@ export default function HeroSection({ scrollTo }: { scrollTo: (id: string) => vo
           </div>
 
           <div className="hero-cta in" style={{ gap: '16px', marginTop: '32px' }}>
-            <button className="btn btn-primary btn-lg" onClick={() => scrollTo("demo")}>
-              Try Live Demo <Icon name="arrow" size={16} />
+            <button className="btn btn-primary btn-lg" onClick={() => scrollTo("apply")}>
+              Get Started <Icon name="arrow" size={16} />
             </button>
             <button className="btn btn-ghost btn-lg" onClick={() => scrollTo("pricing")}>
               See Pricing

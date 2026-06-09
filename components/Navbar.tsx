@@ -21,7 +21,6 @@ export default function Navbar({ scrollTo }: { scrollTo: (id: string) => void })
   const links: [string, string][] = [
     ["Problem", "problem"],
     ["How It Works", "how"],
-    ["Demo", "demo"],
     ["Gaps", "gaps"],
     ["Features", "features"],
     ["Roadmap", "roadmap"],
@@ -54,8 +53,8 @@ export default function Navbar({ scrollTo }: { scrollTo: (id: string) => void })
             <Link href="/login" className="nav-login">
               Login
             </Link>
-            <button className="btn btn-primary btn-sm" onClick={() => scrollTo("demo")}>
-              Try Demo
+            <button className="btn btn-primary btn-sm" onClick={() => scrollTo("apply")}>
+              Get Started
             </button>
           </div>
 
@@ -105,11 +104,11 @@ export default function Navbar({ scrollTo }: { scrollTo: (id: string) => void })
           <button
             className="btn btn-primary"
             onClick={() => {
-              scrollTo("demo");
+              scrollTo("apply");
               setMenuOpen(false);
             }}
           >
-            Try Demo
+            Get Started
           </button>
         </div>
       </div>

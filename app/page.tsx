@@ -6,7 +6,6 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ProblemSection from "@/components/ProblemSection";
 import HowSection from "@/components/HowSection";
-import DemoSection from "@/components/DemoSection";
 import GapsSection from "@/components/GapsSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import RoadmapSection from "@/components/RoadmapSection";
@@ -36,7 +35,6 @@ export default function Page() {
         <HeroSection scrollTo={scrollTo} />
         <ProblemSection />
         <HowSection />
-        <DemoSection />
         <GapsSection />
         <FeaturesSection />
         <RoadmapSection />
