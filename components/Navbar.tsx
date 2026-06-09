@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import Icon from "./Icon";
 import Logo from "./Logo";
@@ -49,9 +50,14 @@ export default function Navbar({ scrollTo }: { scrollTo: (id: string) => void })
             ))}
           </div>
 
-          <button className="btn btn-primary btn-sm" onClick={() => scrollTo("demo")}>
-            Try Demo
-          </button>
+          <div className="nav-cta">
+            <Link href="/login" className="nav-login">
+              Login
+            </Link>
+            <button className="btn btn-primary btn-sm" onClick={() => scrollTo("demo")}>
+              Try Demo
+            </button>
+          </div>
 
           <button className="nav-hamburger" onClick={() => setMenuOpen(true)}>
             <Icon name="menu" size={22} />
@@ -87,6 +93,14 @@ export default function Navbar({ scrollTo }: { scrollTo: (id: string) => void })
               {label}
             </a>
           ))}
+
+          <Link
+            href="/login"
+            className="nav-login mobile-login"
+            onClick={() => setMenuOpen(false)}
+          >
+            Login
+          </Link>
 
           <button
             className="btn btn-primary"
