@@ -30,15 +30,15 @@ const ROADMAP_ITEMS: RoadmapItem[] = [
   },
   {
     icon: "globe",
-    status: "NEXT",
+    status: "NOW",
     title: "Multi-business support",
-    description: "For agencies and operators managing multiple detailing shops from one account.",
+    description: "Live: run multiple detailing shops from one system, each routed to its own number and owner.",
   },
   {
     icon: "check",
-    status: "SOON",
+    status: "NOW",
     title: "Owner web dashboard",
-    description: "Manage bookings, customers, services, reviews, and settings from any browser.",
+    description: "Live: schedule, revenue charts, schedule-gap detection, and review approvals from any browser.",
   },
   {
     icon: "zap",
