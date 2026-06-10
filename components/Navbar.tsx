@@ -9,6 +9,8 @@ import Logo from "./Logo";
 export default function Navbar({ scrollTo }: { scrollTo: (id: string) => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  // undefined = still checking, null = logged out, string = business name
+  const [bizName, setBizName] = useState<string | null | undefined>(undefined);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 400);
@@ -17,6 +19,16 @@ export default function Navbar({ scrollTo }: { scrollTo: (id: string) => void })
 
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    // Same-origin (proxied) request — sends the first-party dashboard cookie.
+    fetch("/dashboard/api/me", { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => setBizName(d?.business_name ?? null))
+      .catch(() => setBizName(null));
+  }, []);
+
+  const loggedIn = typeof bizName === "string";
 
   const links: [string, string][] = [
     ["Problem", "problem"],
@@ -50,9 +62,20 @@ export default function Navbar({ scrollTo }: { scrollTo: (id: string) => void })
           </div>
 
           <div className="nav-cta">
-            <Link href="/login" className="nav-login">
-              Login
-            </Link>
+            {loggedIn ? (
+              <>
+                <Link href="/dashboard" className="nav-login">
+                  {bizName}
+                </Link>
+                <a href="/dashboard/logout" className="nav-login">
+                  Sign out
+                </a>
+              </>
+            ) : (
+              <Link href="/dashboard/login" className="nav-login">
+                Login
+              </Link>
+            )}
             <button className="btn btn-primary btn-sm" onClick={() => scrollTo("apply")}>
               Get Started
             </button>
@@ -93,13 +116,28 @@ export default function Navbar({ scrollTo }: { scrollTo: (id: string) => void })
             </a>
           ))}
 
-          <Link
-            href="/login"
-            className="nav-login mobile-login"
-            onClick={() => setMenuOpen(false)}
-          >
-            Login
-          </Link>
+          {loggedIn ? (
+            <>
+              <Link
+                href="/dashboard"
+                className="nav-login mobile-login"
+                onClick={() => setMenuOpen(false)}
+              >
+                {bizName} — Dashboard
+              </Link>
+              <a href="/dashboard/logout" className="nav-login mobile-login">
+                Sign out
+              </a>
+            </>
+          ) : (
+            <Link
+              href="/dashboard/login"
+              className="nav-login mobile-login"
+              onClick={() => setMenuOpen(false)}
+            >
+              Login
+            </Link>
+          )}
 
           <button
             className="btn btn-primary"
