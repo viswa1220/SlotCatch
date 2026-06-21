@@ -1,15 +1,26 @@
 export type BusinessPreset = {
   name: string;
+  vertical: string;
+  audience: string;
   missedLabel: string;
   chatScript: { from: "a" | "c"; text: string; delay: number }[];
   welcome: string;
   suggestions: string[];
   replies: { primary: string; secondary: string; services: string };
+  // section-specific dynamic copy
+  gap: { bestFit: string };
+  retention: string;
+  featuresHeadline: string;
+  featuresMultiBiz: string;
+  featuresInventory: { title: string; desc: string };
+  how: { quote: string; booking: string };
 };
 
 export const BUSINESS_PRESETS: Record<string, BusinessPreset> = {
   "car detailing": {
     name: "Prime Auto Detailing",
+    vertical: "Auto Detailing",
+    audience: "auto detailers",
     missedLabel: "of calls missed while you're working on a car",
     chatScript: [
       { from: "c", text: "Hey, do you guys do ceramic coating?", delay: 600 },
@@ -26,9 +37,20 @@ export const BUSINESS_PRESETS: Record<string, BusinessPreset> = {
       secondary: "Interior detail for an SUV is $180 and takes ~3 hours. Includes deep vacuum, shampoo, leather conditioning. Any stains I should know about?",
       services: "We offer:\n\n• Exterior Wash & Wax\n• Interior Detail\n• Ceramic Coating\n• Paint Correction\n\nWhich one sounds right?",
     },
+    gap: { bestFit: "Full Interior Detail" },
+    retention: "It's been about a month — want to keep that finish sharp? I have Sat or Sun open.",
+    featuresHeadline: "Built for detailers. Growing every month.",
+    featuresMultiBiz: "Live: run multiple detailing shops from one system, each routed to its own number and owner.",
+    featuresInventory: { title: "Inventory-aware alerts", desc: "Example: Ceramic coating is low — suggest a ceramic appointment tomorrow." },
+    how: {
+      quote: "Instantly provides accurate pricing based on vehicle and service, then checks real availability before confirming.",
+      booking: "Booking details land instantly: customer, service, vehicle, date, time, price, duration.",
+    },
   },
   cleaning: {
     name: "Spotless Home Cleaning",
+    vertical: "Home Cleaning",
+    audience: "home cleaners",
     missedLabel: "of calls missed while you're on a cleaning job",
     chatScript: [
       { from: "c", text: "Hi, how much for a deep clean?", delay: 600 },
@@ -45,9 +67,20 @@ export const BUSINESS_PRESETS: Record<string, BusinessPreset> = {
       secondary: "Move-out cleans start at $320 for a 2BR. Includes inside cabinets, oven, fridge, baseboards. Any special requests?",
       services: "We offer:\n\n• Standard recurring clean\n• Deep clean\n• Move-in / move-out\n• Post-construction\n\nWhich fits your needs?",
     },
+    gap: { bestFit: "Deep Clean" },
+    retention: "It's been about a month — want to keep the place spotless? I have Sat or Sun open.",
+    featuresHeadline: "Built for cleaners. Growing every month.",
+    featuresMultiBiz: "Live: run multiple cleaning crews from one system, each routed to its own number and owner.",
+    featuresInventory: { title: "Inventory-aware alerts", desc: "Example: Supplies are running low — suggest restocking before the next job." },
+    how: {
+      quote: "Instantly provides accurate pricing based on home size and service, then checks real availability before confirming.",
+      booking: "Booking details land instantly: customer, service, address, date, time, price, duration.",
+    },
   },
   hvac: {
     name: "Reliable HVAC Co.",
+    vertical: "HVAC",
+    audience: "HVAC pros",
     missedLabel: "of calls missed while you're on a service call",
     chatScript: [
       { from: "c", text: "Hey, my AC isn't cooling well.", delay: 600 },
@@ -64,9 +97,20 @@ export const BUSINESS_PRESETS: Record<string, BusinessPreset> = {
       secondary: "Diagnostic visit is $99 (waived if you book the repair). We can usually come same-day. When works?",
       services: "We offer:\n\n• Diagnostics & repair\n• Tune-ups\n• Install / replacement\n• Duct cleaning\n\nWhat do you need?",
     },
+    gap: { bestFit: "AC Tune-Up" },
+    retention: "It's been about a month — want to keep your system running cool? I have Sat or Sun open.",
+    featuresHeadline: "Built for HVAC pros. Growing every month.",
+    featuresMultiBiz: "Live: run multiple HVAC operations from one system, each routed to its own number and owner.",
+    featuresInventory: { title: "Inventory-aware alerts", desc: "Example: Air filters are low — suggest a maintenance visit tomorrow." },
+    how: {
+      quote: "Instantly provides accurate pricing based on system and service, then checks real availability before confirming.",
+      booking: "Booking details land instantly: customer, service, equipment, date, time, price, duration.",
+    },
   },
   "lawn care": {
     name: "GreenLine Lawn Care",
+    vertical: "Lawn Care",
+    audience: "lawn care pros",
     missedLabel: "of calls missed while you're out mowing",
     chatScript: [
       { from: "c", text: "Hey, how much to mow my lawn?", delay: 600 },
@@ -83,9 +127,20 @@ export const BUSINESS_PRESETS: Record<string, BusinessPreset> = {
       secondary: "Landscaping starts at $250 for a design consult. Includes site walk and plan. Want to schedule?",
       services: "We offer:\n\n• Weekly mowing\n• Fertilization\n• Landscaping\n• Leaf cleanup\n\nWhat are you looking for?",
     },
+    gap: { bestFit: "Full Yard Service" },
+    retention: "It's been about a month — want to keep the lawn sharp? I have Sat or Sun open.",
+    featuresHeadline: "Built for lawn pros. Growing every month.",
+    featuresMultiBiz: "Live: run multiple crews from one system, each routed to its own number and owner.",
+    featuresInventory: { title: "Inventory-aware alerts", desc: "Example: Fertilizer is low — suggest a treatment visit this week." },
+    how: {
+      quote: "Instantly provides accurate pricing based on lot size and service, then checks real availability before confirming.",
+      booking: "Booking details land instantly: customer, service, address, date, time, price, duration.",
+    },
   },
   dental: {
     name: "Bright Smiles Dental",
+    vertical: "Dental",
+    audience: "dental practices",
     missedLabel: "of calls missed while you're with a patient",
     chatScript: [
       { from: "c", text: "Hi, I'd like to book a cleaning.", delay: 600 },
@@ -101,6 +156,15 @@ export const BUSINESS_PRESETS: Record<string, BusinessPreset> = {
       primary: "Cleaning pricing:\n\n• New patient + X-rays — $149\n• Returning cleaning — $95\n• Deep cleaning — $225/quadrant\n\nWant to book?",
       secondary: "We accept most PPO plans — Delta Dental, Cigna, Aetna, MetLife, United. Send your card and we'll verify. Ready to book?",
       services: "We offer:\n\n• Cleanings & exams\n• Fillings & crowns\n• Whitening\n• Invisalign\n• Emergency care\n\nWhat do you need?",
+    },
+    gap: { bestFit: "Cleaning + Exam" },
+    retention: "It's been about six months — time for your next cleaning? I have a few openings this week.",
+    featuresHeadline: "Built for dental practices. Growing every month.",
+    featuresMultiBiz: "Live: run multiple locations from one system, each routed to its own number and front desk.",
+    featuresInventory: { title: "Recall-aware alerts", desc: "Example: Your recall list is growing — suggest booking overdue patients this week." },
+    how: {
+      quote: "Instantly provides accurate pricing based on treatment and plan, then checks real availability before confirming.",
+      booking: "Booking details land instantly: patient, treatment, provider, date, time, price, duration.",
     },
   },
 };
