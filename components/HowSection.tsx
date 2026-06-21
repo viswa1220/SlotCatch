@@ -1,10 +1,12 @@
 "use client";
 import Icon, { IconName } from "./Icon";
 import { useInView } from "@/lib/hooks";
+import { useBusiness } from "./BusinessContext";
 
 export default function HowSection() {
   const [ref, inView] = useInView({ threshold: 0.25 });
-  
+  const { biz } = useBusiness();
+
   const steps: { icon: IconName; num: string; title: string; sub: string }[] = [
     { 
       icon: "message-circle", 
@@ -15,14 +17,14 @@ sub: "Customers reach out via WhatsApp, SMS, or phone call — missed calls auto
     { 
       icon: "repeat", 
       num: "02", 
-      title: "SlotCatch quotes & schedules", 
-      sub: "Instantly provides accurate pricing based on vehicle and service, then checks real availability before confirming." 
+      title: "SlotCatch quotes & schedules",
+      sub: biz.how.quote
     },
     { 
       icon: "bell", 
       num: "03", 
-      title: "Owner gets notified", 
-      sub: "Booking details land instantly: customer, service, vehicle, date, time, price, duration." 
+      title: "Owner gets notified",
+      sub: biz.how.booking
     },
     { 
       icon: "loader", 

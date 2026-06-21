@@ -1,6 +1,7 @@
 "use client";
 import Icon, { IconName } from "./Icon";
 import { useInView } from "@/lib/hooks";
+import { useBusiness } from "./BusinessContext";
 
 type RoadmapItem = {
   icon: IconName;
@@ -56,19 +57,30 @@ const ROADMAP_ITEMS: RoadmapItem[] = [
 
 export default function FeaturesSection() {
   const [ref, inView] = useInView({ threshold: 0.15 });
-  
+  const { biz } = useBusiness();
+
+  const items: RoadmapItem[] = ROADMAP_ITEMS.map((item) => {
+    if (item.title === "Multi-business support") {
+      return { ...item, description: biz.featuresMultiBiz };
+    }
+    if (item.title === "Inventory-aware alerts") {
+      return { ...item, title: biz.featuresInventory.title, description: biz.featuresInventory.desc };
+    }
+    return item;
+  });
+
   return (
     <section id="features" className="section features-section" ref={ref as any}>
       <div className="section-inner">
         <div className={`section-head center ${inView ? "in" : ""}`}>
           <div className="eyebrow">Roadmap</div>
-          <h2>Built for detailers. Growing every month.</h2>
+          <h2>{biz.featuresHeadline}</h2>
           <p className="section-sub">
             What's live today, and what's coming next — each piece earns its place before the next ships.
           </p>
         </div>
         <div className={`roadmap-features-grid ${inView ? "in" : ""}`}>
-          {ROADMAP_ITEMS.map((item, i) => (
+          {items.map((item, i) => (
             <div 
               key={i} 
               className="roadmap-feature-card glass"

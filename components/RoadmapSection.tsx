@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Icon from "./Icon";
 import { useInView } from "@/lib/hooks";
+import { useBusiness } from "./BusinessContext";
 
 type Stage = {
   day: string;
@@ -73,8 +74,13 @@ const STAGES: Stage[] = [
 
 export default function RoadmapSection() {
   const [ref, inView] = useInView({ threshold: 0.15 });
+  const { biz } = useBusiness();
   const [currentStage, setCurrentStage] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const stages = STAGES.map((s) =>
+    s.day === "DAY 30" ? { ...s, messages: [{ type: "a" as const, text: biz.retention }] } : s
+  );
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -101,7 +107,7 @@ export default function RoadmapSection() {
     setIsPlaying(true);
   };
 
-  const stage = STAGES[currentStage];
+  const stage = stages[currentStage];
 
   return (
     <section id="roadmap" className="section" style={{ background: 'linear-gradient(180deg, transparent, rgba(20,184,166,0.03), transparent)' }}>
@@ -120,7 +126,7 @@ export default function RoadmapSection() {
 
           <div className="retention-stage">
             <div className="retention-timeline">
-              {STAGES.map((s, i) => (
+              {stages.map((s, i) => (
                 <div
                   key={i}
                   className={`retention-tick ${i <= currentStage ? "active" : ""} ${i === currentStage ? "current" : ""}`}
@@ -138,7 +144,7 @@ export default function RoadmapSection() {
                   <Icon name="whatsapp" size={18} />
                 </div>
                 <div className="retention-screen-meta">
-                  <div className="retention-screen-name">Prime Auto Detailing · SlotCatch</div>
+                  <div className="retention-screen-name">{biz.name} · SlotCatch</div>
                   {stage.tag && (
                     <div className="retention-screen-sub">
                       <span className={`retention-tag retention-tag-${stage.tagColor || "mute"}`}>

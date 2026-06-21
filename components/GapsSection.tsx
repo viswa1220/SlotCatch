@@ -1,6 +1,7 @@
 "use client";
 import Icon from "./Icon";
 import { useInView } from "@/lib/hooks";
+import { useBusiness } from "./BusinessContext";
 
 type Feature = {
   icon: Parameters<typeof Icon>[0]["name"];
@@ -43,6 +44,7 @@ const FEATURES: Feature[] = [
 
 export default function GapsSection() {
   const [ref, inView] = useInView({ threshold: 0.2 });
+  const { biz } = useBusiness();
 
   return (
     <section id="gaps" className="section" ref={ref as any}>
@@ -74,7 +76,7 @@ export default function GapsSection() {
               </div>
               <div className="gap-alert-item">
                 <span className="gap-emoji">✨</span>
-                <span>Best fit: <strong>Full Interior Detail</strong>.</span>
+                <span>Best fit: <strong>{biz.gap.bestFit}</strong>.</span>
               </div>
               <div className="gap-alert-item">
                 <span className="gap-emoji">🔥</span>
