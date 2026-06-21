@@ -451,6 +451,50 @@ body::after {
   font-family: var(--font-mono);
 }
 
+/* ---------- Hero vertical dropdown ---------- */
+.vert-dd { position: relative; display: inline-flex; }
+.vert-dd-btn {
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease;
+}
+.vert-dd-btn:hover {
+  background: rgba(20, 184, 166, 0.1);
+  border-color: rgba(20, 184, 166, 0.35);
+}
+.vert-dd-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 170px;
+  background: rgba(15, 18, 25, 0.96);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 60;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+.vert-dd-menu button {
+  padding: 9px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--text-dim);
+  text-align: left;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all .1s ease;
+}
+.vert-dd-menu button:hover { background: rgba(255, 255, 255, 0.05); color: var(--text); }
+.vert-dd-menu button.active { background: rgba(20, 184, 166, 0.15); color: var(--teal); }
+
 .hero-cta {
   display: flex;
   gap: 12px;

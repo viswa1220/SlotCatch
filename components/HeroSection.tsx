@@ -2,10 +2,13 @@
 import Icon from "./Icon";
 import Particles from "./Particles";
 import PhoneMock from "./PhoneMock";
+import { useBusiness } from "./BusinessContext";
+import VerticalDropdown from "./VerticalDropdown";
 
 const HERO_HEADLINE = "Never miss a booking. Ever.";
 
 export default function HeroSection({ scrollTo }: { scrollTo: (id: string) => void }) {
+  const { biz } = useBusiness();
   return (
     <section id="hero" className="section hero-section">
       <Particles />
@@ -30,14 +33,11 @@ export default function HeroSection({ scrollTo }: { scrollTo: (id: string) => vo
             lineHeight: 1.6,
             maxWidth: '540px',
           }}>
-            SlotCatch helps <strong>auto detailers</strong> capture every lead — even missed calls and after-hours messages — with instant WhatsApp and SMS replies, automatic booking, review collection, and retention follow-ups.
+            SlotCatch helps <strong>{biz.audience}</strong> capture every lead — even missed calls and after-hours messages — with instant WhatsApp and SMS replies, automatic booking, review collection, and retention follow-ups.
           </p>
           
           <div className="hero-tags in">
-            <span className="tag">
-              <span className="tag-dot"></span>
-              BUILT FOR: <strong>Auto Detailing</strong>
-            </span>
+            <VerticalDropdown />
             <span className="tag-muted">MORE VERTICALS SOON</span>
           </div>
 

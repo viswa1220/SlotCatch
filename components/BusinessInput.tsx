@@ -5,10 +5,7 @@ import { BUSINESS_PRESETS } from "@/lib/business";
 
 const OPTIONS: { key: string; label: string }[] = [
   { key: "car detailing", label: "Car Detailing" },
-  { key: "cleaning", label: "Cleaning" },
   { key: "hvac", label: "HVAC" },
-  { key: "lawn care", label: "Lawn Care" },
-  { key: "dental", label: "Dental" },
 ];
 
 export default function BusinessInput() {
